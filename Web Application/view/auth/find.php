@@ -1,4 +1,6 @@
-<?php $voter_id = $_GET['voter_id'] ?? ""; ?>
+<?php
+$voter_id = $_GET['voter_id'] ?? "";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -11,8 +13,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial;
-            background-image: url("find1.png");
+            font-family: Arial, sans-serif;
+            background-image: url("../../Assest/find1.png");
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -20,22 +22,21 @@
 
         .box {
             width: 420px;
-
             padding: 30px;
             border-radius: 10px;
             margin-top: 150px;
-
         }
 
         h1 {
             text-align: center;
-            margin: 0 0 10px
+            margin-bottom: 8px;
         }
 
         p {
             text-align: center;
-            color: black;
-            margin: 0 0 20px
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
 
         input {
@@ -43,7 +44,8 @@
             padding: 12px;
             margin: 8px 0;
             border: 1px solid #ccc;
-            border-radius: 6px
+            border-radius: 6px;
+            font-size: 14px;
         }
 
         button {
@@ -54,11 +56,12 @@
             color: #fff;
             border: none;
             border-radius: 25px;
-            cursor: pointer
+            cursor: pointer;
+            font-size: 15px;
         }
 
         button:hover {
-            background: #333
+            background: #333;
         }
 
         .ok {
@@ -66,7 +69,9 @@
             color: #0a6b0a;
             padding: 10px;
             border-radius: 8px;
-            margin-top: 12px
+            margin-top: 12px;
+            text-align: center;
+            font-size: 14px;
         }
 
         .err {
@@ -74,7 +79,9 @@
             color: #a00000;
             padding: 10px;
             border-radius: 8px;
-            margin-top: 12px
+            margin-top: 12px;
+            text-align: center;
+            font-size: 14px;
         }
 
         a {
@@ -83,27 +90,33 @@
             margin-top: 14px;
             text-decoration: none;
             font-weight: bold;
-            color: #000
+            color: #000;
         }
     </style>
 </head>
 
 <body>
+
     <div class="box">
         <h1>ভোটার আইডি অনুসন্ধান</h1>
         <p>এনআইডি নম্বর প্রদান করে আপনার ভোটার আইডি জানুন</p>
 
-        <form method="post">
+
+        <form method="post" action="../../control/FindController.php">
             <input type="text" name="nid" placeholder="NID (10-17 digits)" required>
             <button type="submit" name="find">Find Voter ID</button>
         </form>
 
+
         <?php if ($voter_id): ?>
-            <p>Your Voter ID: <b><?= $voter_id ?></b></p>
+            <div class="ok">
+                Your Voter ID: <b><?php echo htmlspecialchars($voter_id); ?></b>
+            </div>
         <?php endif; ?>
 
         <a href="login.php">Back to Login</a>
     </div>
+
 </body>
 
 </html>
