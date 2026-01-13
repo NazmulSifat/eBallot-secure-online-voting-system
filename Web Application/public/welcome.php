@@ -175,15 +175,15 @@
                 ডিজিটাল বাংলাদেশে গণতন্ত্রের নতুন যুগ।</p>
 
             <div class="buttons">
-                <button class="btn btn-login" onclick="location.href='../../view/auth/login.php'">
+                <button class="btn btn-login" onclick="location.href='../view/auth/login.php'">
                     Login
                 </button>
 
-                <button class="btn btn-signup" onclick="location.href='signup.php'">
+                <button class="btn btn-signup" onclick="location.href='../view/auth/signup.php'">
                     Sign Up
                 </button>
 
-                <button class="btn btn-admin" onclick="location.href='admin-login.php'">
+                <button class="btn btn-admin" onclick="location.href='../view/auth/admin-login.php'">
                     Admin
                 </button>
 
