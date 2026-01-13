@@ -136,7 +136,7 @@
 
 
 
-                <form action="login.php" method="post">
+                <form action="../../control/login_action.php" method="post">
                     <input type="text" id="voter_id" name="voter_id" placeholder="Voter ID (Example:- 0124587858)"
                         required>
                     <input type="text" name="nid" placeholder="National ID (10-12 digits)" pattern="[0-9]{10,17}"

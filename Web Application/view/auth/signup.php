@@ -110,14 +110,15 @@
             <p>অনলাইন ভোটের জন্য আপনার তথ্য দিয়ে নিবন্ধন করুন</p>
 
             <!-- Backend থাকলে action এ URL দাও (ex: register.php / /api/register) -->
-            <form action="register.php" method="post">
+            <form action="../../control/register-action.php" method="post">
+
 
                 <input type="text" name="name" placeholder="Full Name" required>
 
                 <!-- BD phone usually 11 digits -->
                 <input type="tel" name="phone" placeholder="Phone Number (11 digits)" pattern="[0-9]{11}" required>
 
-                <!-- NID length 10-17 digits -->
+                <!-- NID length 10-17 diSSSgits -->
                 <input type="text" name="nid" placeholder="National ID (NID) (10-17 digits)" pattern="[0-9]{10,17}"
                     required>
 
