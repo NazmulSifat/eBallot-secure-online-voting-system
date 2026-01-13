@@ -110,7 +110,7 @@
             <p>অনলাইন ভোটের জন্য আপনার তথ্য দিয়ে নিবন্ধন করুন</p>
 
 
-            <form action="register.php" method="post">
+            <form action="../../control/AuthController.php" method="post">
 
                 <input type="text" name="name" placeholder="Full Name" required>
 
@@ -129,8 +129,10 @@
                     <option value="">Select Upazila</option>
                 </select>
 
-                <button type="submit">Register</button>
+                <!-- THIS IS VERY IMPORTANT -->
+                <button type="submit" name="register">Register</button>
             </form>
+
 
             <div class="login-link">
                 Already registered?
