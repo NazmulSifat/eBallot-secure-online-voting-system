@@ -1,6 +1,10 @@
 <?php
 session_start();
-$error = isset($_GET['error']) ? "Invalid Voter ID or NID" : "";
+
+/* error message */
+$error = isset($_GET['error']) ? "Invalid Voter ID or NID." : "";
+
+/* voter id from signup */
 $voter_id = $_GET['voter_id'] ?? "";
 ?>
 <!DOCTYPE html>
@@ -8,75 +12,166 @@ $voter_id = $_GET['voter_id'] ?? "";
 
 <head>
     <title>Voter Login</title>
+
     <style>
         body {
             margin: 0;
             height: 100vh;
-            font-family: Arial;
-            background: #f4f4f4
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
         }
 
         .container {
             display: flex;
-            height: 100vh
+            height: 100vh;
         }
 
         .form-box {
             width: 40%;
             display: flex;
             justify-content: center;
-            align-items: center
+            align-items: center;
+            background-color: #f4f4f4;
         }
 
         .loginbox {
             width: 500px;
-            padding: 50px
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
         }
 
-        input,
+        h1 {
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        p {
+            color: gray;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #000;
+        }
+
         button {
             width: 100%;
             padding: 12px;
-            margin: 8px 0
+            margin-top: 15px;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
         }
 
-        button {
-            background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 25px
+        button:hover {
+            background: #f60202ff;
+        }
+
+        .note {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+            text-align: left;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .msg {
+            text-align: left;
+            font-size: 14px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .err {
             background: #ffe6e6;
-            padding: 10px
+            color: #a00000;
+        }
+
+        .image-side {
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-side img {
+            width: 50%;
+            height: auto;
+            object-fit: cover;
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
+
         <div class="form-box">
             <div class="loginbox">
                 <h1>ভোটার লগইন</h1>
+                <p>ভোটার আইডি ও জাতীয় পরিচয়পত্র নম্বর দিয়ে লগইন করুন</p>
 
                 <?php if ($error): ?>
-                    <div class="err"><?= $error ?></div>
+                    <div class="msg err"><?php echo htmlspecialchars($error); ?></div>
                 <?php endif; ?>
 
+                <!-- MVC LOGIN FORM -->
                 <form method="post" action="../../control/AuthController.php">
                     <input type="hidden" name="login">
-                    <input type="text" name="voter_id" value="<?= htmlspecialchars($voter_id) ?>" placeholder="Voter ID"
+
+                    <input type="text" name="voter_id" value="<?php echo htmlspecialchars($voter_id); ?>"
+                        placeholder="Voter ID (Example:- 0124587858)" required>
+
+                    <input type="text" name="nid" placeholder="National ID (10-17 digits)" pattern="[0-9]{10,17}"
                         required>
-                    <input type="text" name="nid" placeholder="NID" required>
-                    <button type="submit">Login</button>
+
+                    <button type="submit"><b>Login</b></button>
                 </form>
 
-                <p><a href="find.php">Find Voter ID</a></p>
-                <p><a href="signup.php">Register</a></p>
+                <div class="note">
+                    Forgot your Voter ID?
+                    <a href="find.php">Find Voter</a>
+                </div>
+
+                <div class="login-link">
+                    Not registered yet?
+                    <a href="signup.php">Register</a>
+                </div>
             </div>
         </div>
+
+        <div class="image-side">
+            <img src="../../Assest/elc.png" alt="Voting Image">
+        </div>
+
     </div>
+
 </body>
 
 </html>
