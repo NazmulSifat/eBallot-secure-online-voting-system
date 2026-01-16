@@ -54,23 +54,25 @@
                 <th>Action</th>
             </tr>
 
-            <tr>
-                <td>
-                    <img src="../../uploads/<?= $c['symbol'] ?>" width="40">
-                </td>
-
-                <td>
-                    <a href="../../controllers/AdminController.php?del=<?= $c['id'] ?>">
-                        Delete
-                    </a>
-                </td>
-            </tr>
-
+            <?php while ($c = mysqli_fetch_assoc($candidates)) { ?>
+                <tr>
+                    <td>
+                        <img src="../../uploads/<?= $c['symbol'] ?>" width="40">
+                    </td>
+                    <td><?= $c['name'] ?></td>
+                    <td><?= $c['party'] ?></td>
+                    <td>
+                        <a href="../../controllers/AdminController.php?del=<?= $c['id'] ?>">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            <?php } ?>
         </table>
 
         <!-- VOTING CONTROL -->
         <h3>Voting Control</h3>
-
+        <p>Status: <b><?= $voting['status'] ?></b></p>
 
         <form method="post" action="../../controllers/AdminController.php">
             <button name="start">Start Voting</button>
@@ -86,13 +88,20 @@
                 <th>Voted?</th>
             </tr>
 
-
-
-
+            <?php while ($v = mysqli_fetch_assoc($voters)) { ?>
+                <tr>
+                    <td><?= $v['name'] ?></td>
+                    <td><?= $v['email'] ?></td>
+                    <td><?= $v['has_voted'] ? 'YES' : 'NO' ?></td>
+                </tr>
+            <?php } ?>
         </table>
 
         <!-- WINNER -->
-
+        <h3>Winner</h3>
+        <?php if ($winner) { ?>
+            <p><b><?= $winner['name'] ?></b> (<?= $winner['party'] ?>)</p>
+        <?php } ?>
 
         <a href="../../logout.php">Logout</a>
     </div>
