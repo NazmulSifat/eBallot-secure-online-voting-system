@@ -21,11 +21,17 @@
             border-collapse: collapse
         }
 
-        td,
-        th {
+        th,
+        td {
             border: 1px solid #ccc;
             padding: 8px;
             text-align: center
+        }
+
+        h2 {
+            background: #007bff;
+            color: #fff;
+            padding: 10px
         }
     </style>
 </head>
@@ -37,34 +43,28 @@
 
         <!-- ADD CANDIDATE -->
         <h3>Add Candidate</h3>
-        <form method="post" enctype="multipart/form-data" action="../../controllers/AdminController.php">
-            <input type="text" name="name" placeholder="Candidate Name" required>
-            <input type="text" name="party" placeholder="Party Name" required>
-            <input type="file" name="symbol" required>
+        <form method="post">
+            <input type="text" name="candidate_name" placeholder="Candidate Name" required>
+            <input type="text" name="party_name" placeholder="Party Name" required>
             <button name="add_candidate">Add</button>
         </form>
+
 
         <!-- CANDIDATE LIST -->
         <h3>Candidate List</h3>
         <table>
             <tr>
-                <th>Symbol</th>
                 <th>Name</th>
                 <th>Party</th>
                 <th>Action</th>
             </tr>
-
-            <?php while ($c = mysqli_fetch_assoc($candidates)) { ?>
+            <?php while ($c = mysqli_fetch_assoc($data['candidates'])) { ?>
                 <tr>
+                    <td><?= $c['candidate_name'] ?></td>
+                    <td><?= $c['party_name'] ?></td>
+
                     <td>
-                        <img src="../../uploads/<?= $c['symbol'] ?>" width="40">
-                    </td>
-                    <td><?= $c['name'] ?></td>
-                    <td><?= $c['party'] ?></td>
-                    <td>
-                        <a href="../../controllers/AdminController.php?del=<?= $c['id'] ?>">
-                            Delete
-                        </a>
+                        <a href="?del_candidate=<?= $c['id'] ?>">Delete</a>
                     </td>
                 </tr>
             <?php } ?>
@@ -72,9 +72,8 @@
 
         <!-- VOTING CONTROL -->
         <h3>Voting Control</h3>
-        <p>Status: <b><?= $voting['status'] ?></b></p>
-
-        <form method="post" action="../../controllers/AdminController.php">
+        <p>Status: <b><?= $data['setting']['status'] ?></b></p>
+        <form method="post">
             <button name="start">Start Voting</button>
             <button name="stop">Stop Voting</button>
         </form>
@@ -84,14 +83,13 @@
         <table>
             <tr>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Voter_ID</th>
                 <th>Voted?</th>
             </tr>
-
-            <?php while ($v = mysqli_fetch_assoc($voters)) { ?>
+            <?php while ($v = mysqli_fetch_assoc($data['voters'])) { ?>
                 <tr>
                     <td><?= $v['name'] ?></td>
-                    <td><?= $v['email'] ?></td>
+                    <td><?= $v['voter_id'] ?></td>
                     <td><?= $v['has_voted'] ? 'YES' : 'NO' ?></td>
                 </tr>
             <?php } ?>
@@ -99,11 +97,13 @@
 
         <!-- WINNER -->
         <h3>Winner</h3>
-        <?php if ($winner) { ?>
-            <p><b><?= $winner['name'] ?></b> (<?= $winner['party'] ?>)</p>
+        <?php if ($data['winner']) { ?>
+            <b><?= $data['winner']['name'] ?></b>
+            (<?= $data['winner']['party'] ?>)
         <?php } ?>
 
-        <a href="../../logout.php">Logout</a>
+        <br><br>
+        <a href="logout.php">Logout</a>
     </div>
 
 </body>

@@ -84,10 +84,13 @@
                 <h1>Admin Login</h1>
                 <p>Email এবং Password দিয়ে লগইন করুন</p>
 
-                <form action="admin_login_process.php" method="post">
+                <!-- IMPORTANT FIXES HERE -->
+                <form action="../../control/AuthController.php" method="post">
                     <input type="email" name="email" placeholder="Admin Email" required>
                     <input type="password" name="password" placeholder="Password" required>
-                    <button type="submit"><b>Login</b></button>
+
+                    <!-- THIS NAME IS REQUIRED -->
+                    <button type="submit" name="admin_login"><b>Login</b></button>
                 </form>
             </div>
         </div>
