@@ -31,7 +31,8 @@ if (isset($_POST['login'])) {
 if (isset($_POST['register'])) {
 
     /* basic safety check */
-    if (
+    if
+    (
         empty($_POST['name']) || empty($_POST['phone']) || empty($_POST['nid']) || empty($_POST['zilla']) || empty($_POST['upazila'])
     ) {
         die("Required fields missing");
