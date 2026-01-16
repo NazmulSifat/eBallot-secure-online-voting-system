@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
 
     if ($u) {
         $_SESSION['voter_id'] = $u['voter_id'];
-        header("Location: ../view/voter/dashboard.php");
+        header("Location: ../view/voter/voter-dashboard.php");
         exit;
     } else {
         header("Location: ../view/auth/login.php?error=1");
