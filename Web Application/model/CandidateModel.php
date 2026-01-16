@@ -7,34 +7,36 @@ class CandidateModel
         $this->conn = $conn;
     }
 
-    function add($d)
+    function add($name, $party, $symbol)
     {
-        extract($d);
         return mysqli_query(
             $this->conn,
-            "INSERT INTO candidates(candidate_name,ballot_number,party_name,symbol,zilla,upazila)
-         VALUES('$candidate_name','$ballot_number','$party_name','$symbol','$zilla','$upazila')"
+            "INSERT INTO candidates(name,party,symbol)
+             VALUES('$name','$party','$symbol')"
         );
     }
 
     function all()
     {
-        return mysqli_query(
-            $this->conn,
-            "SELECT * FROM candidates ORDER BY zilla,upazila,ballot_number"
-        );
-    }
-
-    function byArea($z, $u)
-    {
-        return mysqli_query(
-            $this->conn,
-            "SELECT * FROM candidates WHERE zilla='$z' AND upazila='$u'"
-        );
+        return mysqli_query($this->conn, "SELECT * FROM candidates");
     }
 
     function delete($id)
     {
         return mysqli_query($this->conn, "DELETE FROM candidates WHERE id=$id");
+    }
+
+    function winner()
+    {
+        return mysqli_fetch_assoc(
+            mysqli_query(
+                $this->conn,
+                "SELECT c.*, COUNT(v.id) total
+             FROM candidates c
+             JOIN votes v ON c.id=v.candidate_id
+             GROUP BY c.id
+             ORDER BY total DESC LIMIT 1"
+            )
+        );
     }
 }

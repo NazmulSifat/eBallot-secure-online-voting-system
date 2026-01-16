@@ -7,21 +7,24 @@ class VoteModel
         $this->conn = $conn;
     }
 
-    function alreadyVoted($voter_id)
-    {
-        $sql = "SELECT v.*,c.candidate_name,c.party_name
-              FROM votes v
-              JOIN candidates c ON c.id=v.candidate_id
-              WHERE v.voter_id='$voter_id'";
-        return mysqli_fetch_assoc(mysqli_query($this->conn, $sql));
-    }
-
-    function vote($voter_id, $candidate_id)
+    function vote($uid, $cid)
     {
         return mysqli_query(
             $this->conn,
             "INSERT INTO votes(voter_id,candidate_id)
-         VALUES('$voter_id','$candidate_id')"
+             VALUES('$uid','$cid')"
+        );
+    }
+
+    function count()
+    {
+        return mysqli_query(
+            $this->conn,
+            "SELECT c.name,c.party,COUNT(v.id) votes
+             FROM candidates c
+             LEFT JOIN votes v ON c.id=v.candidate_id
+             GROUP BY c.id
+             ORDER BY votes DESC"
         );
     }
 }
