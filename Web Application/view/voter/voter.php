@@ -1,46 +1,56 @@
-<?php
-session_start();
-require "../../config/db.php";
-require "../../model/VoterModel.php";
-require "../../model/VoteModel.php";
-require "../../model/CandidateModel.php";
-
-if (!isset($_SESSION['voter_id']))
-    header("Location: ../auth/login.php");
-
-$voterM = new VoterModel($conn);
-$voteM = new VoteModel($conn);
-$candM = new CandidateModel($conn);
-
-$voter = $voterM->get($_SESSION['voter_id']);
-$already = $voteM->alreadyVoted($voter['voter_id']);
-$cands = $candM->byArea($voter['zilla'], $voter['upazila']);
-?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Dashboard</title>
+    <title>Voter Panel</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f3
+        }
+
+        .box {
+            width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 20px
+        }
+    </style>
 </head>
 
 <body>
 
-    <h2>Welcome <?= htmlspecialchars($voter['name']) ?></h2>
-    <a href="../../control/LogoutController.php">Logout</a>
+    <div class="box">
+        <h2>Voter Panel</h2>
 
-    <?php if ($already): ?>
-        <p>You voted for: <?= $already['candidate_name'] ?></p>
-    <?php endif; ?>
+        <?php if ($voting['status'] != 'on') { ?>
+            <p>Voting is not active.</p>
 
-    <h3>Candidates</h3>
+        <?php } elseif ($user['has_voted']) { ?>
+            <p>You already voted.</p>
 
-    <?php while ($c = mysqli_fetch_assoc($cands)): ?>
-        <form method="post" action="../../control/VoteController.php">
-            <input type="hidden" name="candidate_id" value="<?= $c['id'] ?>">
-            <button <?= $already ? 'disabled' : '' ?>>Vote</button>
-            <?= $c['candidate_name'] ?> (<?= $c['party_name'] ?>)
-        </form>
-    <?php endwhile; ?>
+        <?php } else { ?>
+            <form method="post" action="../../controllers/VoterController.php">
+                <?php while ($c = mysqli_fetch_assoc($candidates)) { ?>
+                    <input type="radio" name="candidate" value="<?= $c['id'] ?>" required>
+
+                    <img src="../../uploads/<?= $c['symbol'] ?>" width="30">
+                    <?= $c['name'] ?> (<?= $c['party'] ?>)
+                    <br><br>
+                <?php } ?>
+
+                <button name="vote">Submit Vote</button>
+            </form>
+        <?php } ?>
+
+        <!-- RESULT -->
+        <?php if ($resultStatus['published'] == 'YES' && $winner) { ?>
+            <h3>Result</h3>
+            <p>Winner: <b><?= $winner['name'] ?></b></p>
+        <?php } ?>
+
+        <a href="../../logout.php">Logout</a>
+    </div>
 
 </body>
 
