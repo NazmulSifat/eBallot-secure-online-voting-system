@@ -103,7 +103,8 @@
         <?php } ?>
 
         <br><br>
-        <a href="logout.php">Logout</a>
+        <a href="../control/LogoutController.php">Logout</a>
+
     </div>
 
 </body>
