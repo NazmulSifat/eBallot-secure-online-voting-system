@@ -1,16 +1,24 @@
 <?php
 session_start();
+
 require "../config/db.php";
 require "../model/VoterModel.php";
-require "../model/VoteModel.php";
+require "../model/voter-voteModel.php";
 
-$voter = new VoterModel($conn);
-$vote = new VoteModel($conn);
-
-$v = $voter->get($_SESSION['voter_id']);
-
-if (!$vote->alreadyVoted($v['voter_id'])) {
-    $vote->vote($v['voter_id'], $_POST['candidate_id']);
+if (!isset($_SESSION['voter_id'])) {
+    header("Location: ../view/auth/login.php");
+    exit;
 }
 
-header("Location: ../view/voter/dashboard.php?voted=1");
+$voterModel = new VoterModel($conn);
+$voteModel = new VoterVoteModel($conn);
+
+$voter = $voterModel->get($_SESSION['voter_id']);
+
+$setting = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT * FROM voting_settings WHERE id=1")
+);
+
+$winner = $voteModel->winner();
+
+require "../view/voter/voter-dashboard.php";

@@ -1,5 +1,5 @@
 <?php
-class VoteModel
+class VoterVoteModel
 {
     private $db;
 

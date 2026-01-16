@@ -1,3 +1,9 @@
+<?php
+if (!isset($voter) || !isset($setting)) {
+    die("Direct access not allowed");
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -14,12 +20,11 @@
             margin: 40px auto;
             background: #fff;
             padding: 20px;
-            border-radius: 8px;
         }
 
         h2 {
             background: #007bff;
-            color: white;
+            color: #fff;
             padding: 10px;
         }
 
@@ -28,53 +33,42 @@
             background: black;
             color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: red;
         }
     </style>
 </head>
 
 <body>
-
     <div class="box">
 
         <h2>Welcome, <?= htmlspecialchars($voter['name']) ?></h2>
 
-        <p><b>Voter ID:</b> <?= htmlspecialchars($voter['voter_id']) ?></p>
-        <p><b>Area:</b> <?= htmlspecialchars($voter['zilla']) ?>, <?= htmlspecialchars($voter['upazila']) ?></p>
+        <p><b>Voter ID:</b> <?= $voter['voter_id'] ?></p>
+        <p><b>Area:</b> <?= $voter['zilla'] ?>, <?= $voter['upazila'] ?></p>
 
         <hr>
 
         <?php if ($setting['status'] !== 'on') { ?>
 
-            <p style="color:red;"><b>Voting is not active.</b></p>
+            <p style="color:red;">Voting is not active.</p>
 
         <?php } elseif ($voter['has_voted']) { ?>
 
-            <p style="color:green;"><b>You have already voted.</b></p>
+            <p style="color:green;">You have already voted.</p>
 
         <?php } else { ?>
 
-            <h3>Cast Your Vote</h3>
-
-            <form method="post" action="../../control/VoteController.php">
+            <form method="post" action="../../control/voter-voteController.php">
 
                 <?php
                 $candidates = mysqli_query($conn, "SELECT * FROM candidates");
                 while ($c = mysqli_fetch_assoc($candidates)) {
                     ?>
                     <input type="radio" name="candidate_id" value="<?= $c['id'] ?>" required>
-                    <?= htmlspecialchars($c['candidate_name']) ?>
-                    (<?= htmlspecialchars($c['party_name']) ?>)
-                    <br>
+                    <?= $c['candidate_name'] ?> (<?= $c['party_name'] ?>)<br>
                 <?php } ?>
 
                 <br>
-                <button type="submit" name="vote">Submit Vote</button>
+                <button type="submit">Submit Vote</button>
             </form>
 
         <?php } ?>
@@ -84,9 +78,9 @@
         <h3>Current Result</h3>
         <?php if ($winner) { ?>
             <p>
-                Leading Candidate:
-                <b><?= htmlspecialchars($winner['candidate_name']) ?></b>
-                (<?= htmlspecialchars($winner['party_name']) ?>)
+                Leading:
+                <b><?= $winner['candidate_name'] ?></b>
+                (<?= $winner['party_name'] ?>)
             </p>
         <?php } else { ?>
             <p>No votes yet.</p>
@@ -97,7 +91,6 @@
         <a href="../../control/LogoutController.php">Logout</a>
 
     </div>
-
 </body>
 
 </html>
