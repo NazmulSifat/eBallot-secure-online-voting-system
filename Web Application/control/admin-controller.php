@@ -1,47 +1,27 @@
 <?php
 session_start();
+if ($_SESSION['role'] != 'admin')
+    exit;
 
 require "../config/db.php";
-require "../model/admin-model.php";
+require "../model/AdminModel.php";
+$m = new AdminModel($conn);
 
+if (isset($_POST['add_candidate']))
+    $m->addCandidate($_POST['candidate_name'], $_POST['party_name']);
 
-/* -------- ADMIN SECURITY -------- */
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../view/auth/admin-login.php");
-    exit;
-}
+if (isset($_GET['del_candidate']))
+    $m->deleteCandidate($_GET['del_candidate']);
 
-$model = new AdminModel($conn);
+if (isset($_POST['start']))
+    $m->startVoting();
+if (isset($_POST['stop']))
+    $m->stopVoting();
 
-/* -------- HANDLE FORM / ACTION -------- */
-if (isset($_POST['add_candidate'])) {
-    $model->addCandidate(
-        $_POST['candidate_name'],
-        $_POST['party_name']
-    );
-}
-
-
-if (isset($_GET['del_candidate'])) {
-    $model->deleteCandidate($_GET['del_candidate']);
-}
-
-if (isset($_POST['start'])) {
-    $model->startVoting();
-}
-
-if (isset($_POST['stop'])) {
-    $model->stopVoting();
-}
-
-/* -------- DATA FOR VIEW -------- */
 $data = [
-    'setting' => $model->getSetting(),
-    'candidates' => $model->getCandidates(),
-    'voters' => $model->getVoters(),
-    'winner' => $model->getWinner()
+    'setting' => $m->getSetting(),
+    'candidates' => $m->getCandidates(),
+    'voters' => $m->getVoters(),
+    'winner' => $m->getWinner()
 ];
-
-/* -------- LOAD VIEW -------- */
-
 require "../view/admin/admin.php";

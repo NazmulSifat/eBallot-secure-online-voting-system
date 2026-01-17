@@ -97,10 +97,11 @@
 
         <!-- WINNER -->
         <h3>Winner</h3>
-        <?php if ($data['winner']) { ?>
-            <b><?= $data['winner']['name'] ?></b>
-            (<?= $data['winner']['party'] ?>)
-        <?php } ?>
+        <?php if ($data['winner']): ?>
+            <b><?= $data['winner']['candidate_name'] ?></b>
+            (<?= $data['winner']['party_name'] ?>)
+        <?php endif; ?>
+
 
         <br><br>
         <a href="../control/LogoutController.php">Logout</a>
