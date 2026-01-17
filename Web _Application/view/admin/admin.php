@@ -59,7 +59,8 @@
 
         <script>
             function loadLiveResult() {
-                fetch("../../control/ajax_live_result.php")
+                // the collect of data from this path 
+                fetch("/eBallot-secure-online-voting-system/Web%20_Application/control/ajax_live_result.php")
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById("liveResult").innerHTML = html;
@@ -67,12 +68,11 @@
                     .catch(err => console.error(err));
             }
 
-            // প্রতি 1 সেকেন্ডে update
             setInterval(loadLiveResult, 1000);
-
-            // প্রথমবার load
             loadLiveResult();
         </script>
+
+
 
 
 
