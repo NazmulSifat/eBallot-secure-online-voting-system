@@ -50,6 +50,34 @@
         </form>
 
 
+        <!-- AJAX LIVE RESULT  -->
+        <h3>Live Result</h3>
+
+        <div id="liveResult">
+            Loading...
+        </div>
+
+        <script>
+            function loadLiveResult() {
+                fetch("../../control/ajax_live_result.php")
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("liveResult").innerHTML = html;
+                    })
+                    .catch(err => console.error(err));
+            }
+
+            // প্রতি 1 সেকেন্ডে update
+            setInterval(loadLiveResult, 1000);
+
+            // প্রথমবার load
+            loadLiveResult();
+        </script>
+
+
+
+
+
         <!-- CANDIDATE LIST -->
         <h3>Candidate List</h3>
         <table>
