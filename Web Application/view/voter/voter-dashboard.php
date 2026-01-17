@@ -68,7 +68,9 @@ if (!isset($voter) || !isset($setting)) {
                 <?php } ?>
 
                 <br>
-                <button type="submit">Submit Vote</button>
+
+                <button type="submit" name="vote">Submit Vote</button>
+
             </form>
 
         <?php } ?>

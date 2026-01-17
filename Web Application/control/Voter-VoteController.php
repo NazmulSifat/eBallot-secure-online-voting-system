@@ -3,7 +3,7 @@ session_start();
 
 require "../config/db.php";
 require "../model/VoterModel.php";
-require "../model/voter-voteModel.php";
+require "../model/Voter-VoteModel.php";
 
 /* ---------- AUTH CHECK ---------- */
 if (!isset($_SESSION['voter_id'])) {
@@ -29,24 +29,29 @@ $setting = mysqli_fetch_assoc(
 );
 
 /* ---------- VOTE SUBMIT ---------- */
-if (
-    isset($_POST['candidate_id']) &&
-    !$voter['has_voted'] &&
-    $setting &&
-    $setting['status'] === 'on'
-) {
+/* ---------- VOTE SUBMIT ---------- */
+if (isset($_POST['vote']) && $voter['has_voted'] == 0 && $setting['status'] == 'on') {
 
-    // Save vote
-    $voteModel->vote($voter['voter_id'], $_POST['candidate_id']);
+    $cid = $_POST['candidate_id'];
+    $uid = $_SESSION['voter_id']; // voters.id
 
-    // Mark voter as voted
+    // insert vote
     mysqli_query(
         $conn,
-        "UPDATE voters 
-         SET has_voted = 1 
-         WHERE voter_id = '{$voter['voter_id']}'"
+        "INSERT INTO votes (voter_id, candidate_id)
+         VALUES ('$uid', '$cid')"
     );
+
+    // mark voter as voted
+    mysqli_query(
+        $conn,
+        "UPDATE voters SET has_voted = 1 WHERE id = '$uid'"
+    );
+
+    header("Location: ../control/VoterController.php");
+    exit;
 }
+
 
 /* ---------- REDIRECT BACK TO DASHBOARD ---------- */
 header("Location: VoteController.php");
