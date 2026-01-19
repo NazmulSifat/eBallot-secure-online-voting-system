@@ -1,5 +1,5 @@
 <?php
-require "../config/db.php"; // path adjust করো
+require "../config/db.php";
 
 $sql = "
 SELECT c.candidate_name, c.party_name, COUNT(v.id) AS votes
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $sql);
                 <?= htmlspecialchars($row['party_name']) ?>
             </td>
             <td>
-                <?= $row['votes'] ?>
+               <?= $row['votes'] ?>
             </td>
         </tr>
     <?php } ?>

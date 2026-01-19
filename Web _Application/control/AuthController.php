@@ -9,7 +9,7 @@ if (isset($_POST['admin_login'])) {
     $m = new AdminModel($conn);
     $a = $m->adminLogin($_POST['email']);
 
-    // ✅ plain text password check
+    // text password check
     if ($a && $_POST['password'] === $a['password']) {
         $_SESSION['user_id'] = $a['id'];
         $_SESSION['role'] = 'admin';

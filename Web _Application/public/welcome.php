@@ -64,7 +64,6 @@
         transition: all 0.2s ease;
     }
 
-    /* login button */
 
     .btn-login {
         background: #f2f2f2;
@@ -75,7 +74,7 @@
         background: #cb0a0aff;
     }
 
-    /* signup button */
+
 
     .btn-signup {
         background: #f2f2f2;
@@ -86,7 +85,7 @@
         background: #cb0a0aff;
     }
 
-    /* admin button */
+
     .btn-admin {
         background: #f2f2f2;
         color: #050505ff;
@@ -145,7 +144,7 @@
         position: absolute;
         top: 50%;
         right: 160px;
-        /* ডান পাশে */
+
         transform: translateY(-50%);
         text-align: center;
 

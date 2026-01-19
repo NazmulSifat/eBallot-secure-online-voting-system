@@ -41,7 +41,7 @@
     <div class="box">
         <h2>Admin Panel</h2>
 
-        <!-- ADD CANDIDATE -->
+
         <h3>Add Candidate</h3>
         <form method="post">
             <input type="text" name="candidate_name" placeholder="Candidate Name" required>
@@ -50,7 +50,7 @@
         </form>
 
 
-        <!-- AJAX LIVE RESULT  -->
+
         <h3>Live Result</h3>
 
         <div id="liveResult">
@@ -78,7 +78,7 @@
 
 
 
-        <!-- CANDIDATE LIST -->
+
         <h3>Candidate List</h3>
         <table>
             <tr>
@@ -98,7 +98,7 @@
             <?php } ?>
         </table>
 
-        <!-- VOTING CONTROL -->
+
         <h3>Voting Control</h3>
         <p>Status: <b><?= $data['setting']['status'] ?></b></p>
         <form method="post">
@@ -106,7 +106,7 @@
             <button name="stop">Stop Voting</button>
         </form>
 
-        <!-- VOTER LIST -->
+
         <h3>Voter List</h3>
         <table>
             <tr>
@@ -123,7 +123,7 @@
             <?php } ?>
         </table>
 
-        <!-- WINNER -->
+
         <h3>Winner</h3>
         <?php if ($data['winner']): ?>
             <b><?= $data['winner']['candidate_name'] ?></b>
