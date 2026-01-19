@@ -3,25 +3,135 @@
 
 <head>
     <title>Voter Dashboard</title>
+
+
+
+
     <style>
         body {
-            font-family: Arial;
-            background: #eef2f3
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #e9ecef;
+            margin: 0;
+            padding: 0;
         }
 
         .box {
-            width: 700px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 20px
+            width: 720px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border: 1px solid #cfd4da;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        /* ballot paper header line */
+        .box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 8px;
+            width: 100%;
+            background: linear-gradient(to right, #006400, #2e8b57);
         }
 
         h2 {
-            background: green;
+            background: #006400;
+            color: #ffffff;
+            padding: 12px 15px;
+            margin: -30px -40px 20px -40px;
+            text-align: center;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            margin-top: 25px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 6px;
+        }
+
+        p {
+            font-size: 15px;
+            color: #333;
+        }
+
+        /* voting options */
+        form {
+            margin-top: 15px;
+        }
+
+        input[type="radio"] {
+            transform: scale(1.2);
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border: 1px dashed #bbb;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+        }
+
+        label:hover {
+            background: #f8f9fa;
+            border-color: #006400;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 22px;
+            font-size: 15px;
+            background: #006400;
             color: #fff;
-            padding: 10px
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #004d00;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        /* winner section */
+        .winner {
+            background: #f4fff4;
+            border: 1px solid #c8e6c9;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #006400;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
+
+
+
+
+
 </head>
 
 <body>
