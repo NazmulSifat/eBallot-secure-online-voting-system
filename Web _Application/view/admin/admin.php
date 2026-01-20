@@ -24,13 +24,17 @@
 
         .sidebar {
             width: 220px;
-            background: #0d6efd;
+            background: #006651;
             color: #fff;
             padding: 20px;
+
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar h2 {
-            margin-bottom: 25px;
+            margin-bottom: 150px;
+
         }
 
         .sidebar a {
@@ -46,6 +50,29 @@
         .sidebar a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
+
+        .sidebar a.log {
+
+            margin-top: auto;
+
+        }
+
+        .sidebar a.log:hover {
+            background: red;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+
+        }
+
+
+        .logo {
+            width: 100px;
+        }
+
 
 
         .main {
@@ -123,14 +150,18 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <h2>eBallot Admin</h2>
+            <h2></h2>
 
             <a href="#" class="active" onclick="showSection('dashboard', this)">Dashboard</a>
             <a href="#" onclick="showSection('candidates', this)">Candidates</a>
             <a href="#" onclick="showSection('voters', this)">Voters</a>
             <a href="#" onclick="showSection('results', this)">Results</a>
 
-            <a href="../control/LogoutController.php">Logout</a>
+            <a href="../control/LogoutController.php" class="log">Logout</a>
+
+            <div class="logo-container">
+                <img src="../Assest/elc.png" alt="Logo" class="logo">
+            </div>
         </div>
 
         <div class="main">
