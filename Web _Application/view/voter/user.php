@@ -210,7 +210,7 @@
 
 
     </div>
-    <a href="../../control/LogoutController.php">Logout</a>
+    <a href="../../control/LogoutController1.php">Logout</a>
 
 </body>
 
